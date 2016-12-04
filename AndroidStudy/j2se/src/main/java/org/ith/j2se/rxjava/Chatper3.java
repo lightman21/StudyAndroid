@@ -1,16 +1,79 @@
 package org.ith.j2se.rxjava;
 
+import java.util.concurrent.TimeUnit;
 import rx.Observable;
 
 import static org.ith.j2se.rxjava.Chatper3.Sound.DAH;
 import static org.ith.j2se.rxjava.Chatper3.Sound.DI;
 import static rx.Observable.empty;
 import static rx.Observable.just;
+import static rx.Observable.timer;
 
+/**
+ * 2016-12-04 22:08:50
+ *
+ * what flatmap essentially does is take a master sequence(Observable) of values appearing over
+ * time(event), and replaces each of the events with an independent independent independent
+ * subsequence.
+ */
 public class Chatper3 {
   public static void main(String[] args) {
+    test4();
+  }
 
-    test3();
+  public static void test4() {
+    Observable.just(1, 2, 3)
+        .delay(10, TimeUnit.SECONDS)
+        .subscribe(i -> System.out.println("delay --> " + i + ",,," + Thread.currentThread().getName()))
+    ;
+    //equivalent to
+    Observable.timer(10, TimeUnit.SECONDS)
+        .flatMap(i -> just(1, 2, 3))
+        .subscribe(i -> System.out.println("timer =============== " + i + ",,," + Thread.currentThread().getName()))
+    ;
+
+//    if not sleep and just let the test4 method done,you will see nothing
+//    try {
+//      Thread.sleep(10 * 1000);
+//      System.out.println("now sleep completed!");
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+
+    //----------------------why flatmap has no order?
+    Observable.just("Lorem", "sit", "amet",
+        "consectetur", "adipiscing")
+        .delay(w -> timer(w.length(), TimeUnit.MILLISECONDS))
+        .subscribe(w -> System.out.println("delay---> " + w + ",,," + w.length()));
+
+
+    Observable.just("Lorem", "sit", "amet",
+        "consectetur", "adipiscing")
+        .flatMap(w -> {
+          System.out.println("flatmap inner -> " + w + ",,," + w.length());
+          return just(w).timer(w.length(), TimeUnit.MILLISECONDS);
+        })
+        .map(x -> x)
+        .subscribe();
+    //----------------------why flatmap has no order?
+
+//    Observable.just("Lorem", "ipsum", "dolor", "sit", "amet",
+//        "consectetur", "adipiscing", "elit")
+//        .flatMap(w -> timer(w.length(), TimeUnit.MILLISECONDS)
+//            .map(x -> x)
+//        )
+//        .subscribe(x -> System.out.println("subscribe " + x))
+//    ;
+
+    //    if not sleep and just let the test4 method done,you will see nothing
+    try {
+      Thread.sleep(1 * 1000);
+      System.out.println("now sleep completed!");
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+
   }
 
 //-----------------------test3------------------------------//
