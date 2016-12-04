@@ -3,8 +3,8 @@ package org.ith.j2se.rxjava;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 
-import static org.ith.j2se.rxjava.Chatper3.Sound.DAH;
-import static org.ith.j2se.rxjava.Chatper3.Sound.DI;
+import static org.ith.j2se.rxjava.MapAndFlatMapStudy.Sound.DAH;
+import static org.ith.j2se.rxjava.MapAndFlatMapStudy.Sound.DI;
 import static rx.Observable.empty;
 import static rx.Observable.just;
 import static rx.Observable.timer;
@@ -16,7 +16,7 @@ import static rx.Observable.timer;
  * time(event), and replaces each of the events with an independent independent independent
  * subsequence.
  */
-public class Chatper3 {
+public class MapAndFlatMapStudy {
   public static void main(String[] args) {
     test4();
   }
