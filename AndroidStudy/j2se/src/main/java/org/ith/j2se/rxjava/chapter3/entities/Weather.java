@@ -12,4 +12,9 @@ public class Weather {
     this.temperature = temperature;
     this.wind = wind;
   }
+
+  public boolean isSunny()
+  {
+    return true;
+  }
 }
