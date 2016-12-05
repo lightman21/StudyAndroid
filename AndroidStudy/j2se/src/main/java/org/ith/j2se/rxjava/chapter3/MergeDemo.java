@@ -26,6 +26,8 @@ public class MergeDemo {
   public static void main(String[] args) {
     //what we wourld like to do is run these three algorithms side by side
 
+    mergeWithError();
+
     CarPhoto photo1 = new CarPhoto();
     CarPhoto photo2 = new CarPhoto();
     CarPhoto photo3 = new CarPhoto();
@@ -36,6 +38,7 @@ public class MergeDemo {
     //but how can I get the errors?
     Observable.mergeDelayError(fastAlgo(photo1), preciseAlgo(photo2), experimentalAlgo(photo3));
   }
+
 
   static Observable<LicensePlate> fastAlgo(CarPhoto photo) {
     //Fast but poor quality
@@ -51,6 +54,52 @@ public class MergeDemo {
   static Observable<LicensePlate> experimentalAlgo(CarPhoto photo) {
 //    Unpredicatable,running anyway
     return Observable.empty();
+  }
+
+
+  /***
+   * make a sample to study how to get the error when merge multiple Observable
+   */
+  public static Observable<Integer> left() {
+    return Observable.just(1, 2, 3, 4, 5).map(i -> i / (i - 1));
+  }
+
+  public static Observable<Integer> right() {
+    return Observable.just(10, 9, 8).map(i -> i / (i - 9));
+  }
+
+  public static void mergeWithError() {
+
+    System.out.println("------------------------only onErrorReturn----------------------");
+
+    Observable.mergeDelayError(left(), right())
+        .onErrorReturn(error -> {
+          System.out.println("now onErrorReturn" + error);
+          return 1988;
+        })
+        .forEach(System.out::println);
+
+    System.out.println("------------------------only onErrorReturn----------------------\n\n");
+
+    System.out.println("------------------------onError----------------------");
+
+    Observable.mergeDelayError(left(), right())
+        .subscribe(onNext -> System.out.println("onNext-> " + onNext), onError -> System.out.println("onError" + onError));
+
+    System.out.println("------------------------onError----------------------\n\n");
+
+    System.out.println("------------------------onError and onErrorReturn--------------------");
+
+    //when onErrorReturn and onError both write,onErrorReturn win
+
+    Observable.mergeDelayError(left(), right())
+        .onErrorReturn(x->{
+          System.out.println("onErrorReturn " + x);
+          return 21;
+        })
+        .subscribe(onNext -> System.out.println("onNext-> " + onNext), onError -> System.out.println("onError" + onError));
+    System.out.println("------------------------onError and onErrorReturn--------------------");
+
   }
 
 }
