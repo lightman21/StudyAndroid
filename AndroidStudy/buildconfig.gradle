@@ -1,37 +1,38 @@
 ext {
 
-  android = [applicationId    : "org.android.study.ith",
-             versionName      : "1.0",
-             versionCode      : 7,
+    android = [applicationId    : "org.android.study.ith",
+               versionName      : "1.0",
+               versionCode      : 7,
 
-             targetSdkVersioin: 22,
-             buildToolsVersion: "24.0.1",
-             compileSdkVersion: 24,
-             minSdkVersion    : 14,
+               targetSdkVersioin: 22,
+               buildToolsVersion: "24.0.1",
+               compileSdkVersion: 24,
+               minSdkVersion    : 14,
 
-  ]
+    ]
 
-  googleSupportVersion = "24.1.0"
+    googleSupportVersion = "24.1.0"
 
-  googleDependencies = [design         : "com.android.support:design:${googleSupportVersion}",
-                        appcompat_v7   : "com.android.support:appcompat-v7:${googleSupportVersion}",
-                        support_v4     : "com.android.support:support-v4:${googleSupportVersion}",
-                        recyclerview_v7: "com.android.support:recyclerview-v7:${googleSupportVersion}",
-                        cardview_v7    : "com.android.support:cardview-v7:${googleSupportVersion}"]
+    googleDependencies = [design         : "com.android.support:design:${googleSupportVersion}",
+                          appcompat_v7   : "com.android.support:appcompat-v7:${googleSupportVersion}",
+                          support_v4     : "com.android.support:support-v4:${googleSupportVersion}",
+                          recyclerview_v7: "com.android.support:recyclerview-v7:${googleSupportVersion}",
+                          cardview_v7    : "com.android.support:cardview-v7:${googleSupportVersion}"]
 
 
-  otherDependencies = [butterknife    : "com.jakewharton:butterknife:8.1.0",
-                       butterknife_apt: "com.jakewharton:butterknife-compiler:8.1.0",
-                       eventbus       : "org.greenrobot:eventbus:3.0.0",
-                       gson           : "com.google.code.gson:gson:2.4",
-                       ultra_ptr      : "in.srain.cube:ultra-ptr:1.0.10",
-                       glide          : "com.github.bumptech.glide:glide:3.7.0",
-                       stream         : "com.annimon:stream:1.1.2",
-                       material_design: "com.github.navasmdc:MaterialDesign:1.5@aar",
+    otherDependencies = [butterknife    : "com.jakewharton:butterknife:8.1.0",
+                         butterknife_apt: "com.jakewharton:butterknife-compiler:8.1.0",
+                         eventbus       : "org.greenrobot:eventbus:3.0.0",
+                         gson           : "com.google.code.gson:gson:2.4",
+                         ultra_ptr      : "in.srain.cube:ultra-ptr:1.0.10",
+                         glide          : "com.github.bumptech.glide:glide:3.7.0",
+                         stream         : "com.annimon:stream:1.1.2",
+                         material_design: "com.github.navasmdc:MaterialDesign:1.5@aar",
+                         lombok       : "org.projectlombok:lombok:1.14.8",
 
-                       rxjava         : "io.reactivex:rxjava:1.1.6",
-                       rxandroid      : "io.reactivex:rxandroid:1.2.1",
+                         rxjava         : "io.reactivex:rxjava:1.1.6",
+                         rxandroid      : "io.reactivex:rxandroid:1.2.1",
 
-                       retrofit       : "com.squareup.retrofit:retrofit:1.9.0",
-                       okhttp         : "com.squareup.okhttp:okhttp:2.2.0",]
+                         retrofit       : "com.squareup.retrofit:retrofit:1.9.0",
+                         okhttp         : "com.squareup.okhttp:okhttp:2.2.0",]
 }
