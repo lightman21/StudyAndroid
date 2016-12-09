@@ -54,6 +54,7 @@ public class LoadAppActivity extends AppCompatActivity implements SwipeRefreshLa
   @Override
   public void onRefresh() {
     Observable<AppInfo> observable = TUtil.getApps(this);
+
     observable.subscribe(onNext -> {
       if (!mData.contains(onNext)) {
         mData.add(onNext);

@@ -18,7 +18,6 @@ import rx.Observable;
 /**
  * Created by tanghao on 12/9/16.
  */
-
 public class TUtil {
   public static Observable<AppInfo> getApps(Activity activity) {
     return Observable.create(subscriber -> {

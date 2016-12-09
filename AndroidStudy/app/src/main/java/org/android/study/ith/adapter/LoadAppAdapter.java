@@ -38,6 +38,7 @@ public class LoadAppAdapter extends RecyclerView.Adapter<LoadAppAdapter.ViewHold
   public void onBindViewHolder(ViewHolder holder, int position) {
     AppInfo info = mData.get(position);
 
+    //let Glide load Drawable
     Glide.with(context).load(0).placeholder(info.getIconDrawable()).centerCrop().dontAnimate().into(holder.iconIv);
 
     holder.lableTv.setText(info.getName());
