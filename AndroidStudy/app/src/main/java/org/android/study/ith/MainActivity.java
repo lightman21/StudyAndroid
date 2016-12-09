@@ -3,7 +3,7 @@ package org.android.study.ith;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import org.android.study.ith.activity.PasswordEditTextAct;
+import org.android.study.ith.activity.LoadAppActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    startActivity(new Intent(this, PasswordEditTextAct.class));
+    startActivity(new Intent(this, LoadAppActivity.class));
   }
 }

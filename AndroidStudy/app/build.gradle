@@ -1,98 +1,101 @@
 apply plugin: 'com.android.application'
 
 repositories {
-  mavenCentral()
-  mavenLocal()
-  flatDir {
-    dirs 'libs'
-  }
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    mavenCentral()
+    mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 android {
 
-  def globalConfig = rootProject.ext.android
+    def globalConfig = rootProject.ext.android
 
-  compileSdkVersion globalConfig.compileSdkVersion
-  buildToolsVersion globalConfig.buildToolsVersion
+    compileSdkVersion globalConfig.compileSdkVersion
+    buildToolsVersion globalConfig.buildToolsVersion
 
-  defaultConfig {
-    applicationId globalConfig.applicationId
-    minSdkVersion globalConfig.minSdkVersion
-    targetSdkVersion globalConfig.targetSdkVersion
-    versionCode globalConfig.versionCode
-    versionName globalConfig.versionName
+    defaultConfig {
+        applicationId globalConfig.applicationId
+        minSdkVersion globalConfig.minSdkVersion
+        targetSdkVersion globalConfig.targetSdkVersion
+        versionCode globalConfig.versionCode
+        versionName globalConfig.versionName
 
-    jackOptions {
-      enabled true
-    }
-  }
-
-  /////////////cutting line////////////////
-
-  //打包签名
-  signingConfigs {
-    myConfig {
-      storeFile file(project.KS_FILE_PATH)
-      storePassword project.KS_STORE_PASSWORD
-      keyAlias project.KS_ALIAS
-      keyPassword project.KS_PASSWORD
-    }
-  }
-
-  /////////////cutting line////////////////
-
-  buildTypes {
-    release {
-      signingConfig signingConfigs.myConfig
-      minifyEnabled false
-      proguardFiles 'proguard-rules.pro'
+        jackOptions {
+            enabled true
+        }
     }
 
-    debug {
-      signingConfig signingConfigs.myConfig
-      minifyEnabled false
-      proguardFiles 'proguard-rules.pro'
+    /////////////cutting line////////////////
+
+    //打包签名
+    signingConfigs {
+        myConfig {
+            storeFile file(project.KS_FILE_PATH)
+            storePassword project.KS_STORE_PASSWORD
+            keyAlias project.KS_ALIAS
+            keyPassword project.KS_PASSWORD
+        }
     }
-  }
 
-  /////////////cutting line////////////////
+    /////////////cutting line////////////////
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.myConfig
+            minifyEnabled false
+            proguardFiles 'proguard-rules.pro'
+        }
 
-  /////////////cutting line////////////////
+        debug {
+            signingConfig signingConfigs.myConfig
+            minifyEnabled false
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    /////////////cutting line////////////////
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    /////////////cutting line////////////////
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
-  def google = rootProject.ext.googleDependencies
-  def other = rootProject.ext.otherDependencies
+    def google = rootProject.ext.googleDependencies
+    def other = rootProject.ext.otherDependencies
 
-  compile google.appcompat_v7
-  compile google.recyclerview_v7
+    compile google.appcompat_v7
+    compile google.recyclerview_v7
+    compile google.cardview_v7
 
-  compile other.gson
-  compile other.ultra_ptr
-  compile other.glide
-  compile other.stream
+    compile other.gson
+    compile other.ultra_ptr
+    compile other.glide
+    compile other.stream
 
-  compile other.material_design
+    compile other.material_design
 
-  // butterknife
-  compile other.butterknife
-  annotationProcessor other.butterknife_apt
+    // butterknife
+    compile other.butterknife
+    annotationProcessor other.butterknife_apt
 
-  compile other.retrofit
-  compile other.okhttp
+    compile other.lombok
 
-  compile other.rxjava
-  compile other.rxandroid
+    compile other.retrofit
+    compile other.okhttp
+
+    compile other.rxjava
+    compile other.rxandroid
 }

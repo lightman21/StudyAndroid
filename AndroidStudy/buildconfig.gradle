@@ -11,7 +11,7 @@ ext {
 
     ]
 
-    googleSupportVersion = "24.1.0"
+    googleSupportVersion = "24.2.1"
 
     googleDependencies = [design         : "com.android.support:design:${googleSupportVersion}",
                           appcompat_v7   : "com.android.support:appcompat-v7:${googleSupportVersion}",
