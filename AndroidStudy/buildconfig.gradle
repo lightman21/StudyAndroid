@@ -28,7 +28,7 @@ ext {
                          glide          : "com.github.bumptech.glide:glide:3.7.0",
                          stream         : "com.annimon:stream:1.1.2",
                          material_design: "com.github.navasmdc:MaterialDesign:1.5@aar",
-                         lombok       : "org.projectlombok:lombok:1.14.8",
+                         lombok         : "org.projectlombok:lombok:1.14.8",
 
                          rxjava         : "io.reactivex:rxjava:1.1.6",
                          rxandroid      : "io.reactivex:rxandroid:1.2.1",
