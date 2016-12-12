@@ -58,7 +58,7 @@ public class MergeDemo {
 
 
   /***
-   * make a sample to study how to get the error when merge multiple Observable
+   * make a fillData to study how to get the error when merge multiple Observable
    */
   public static Observable<Integer> left() {
     return Observable.just(1, 2, 3, 4, 5).map(i -> i / (i - 1));
