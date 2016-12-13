@@ -18,10 +18,34 @@ import rx.schedulers.Schedulers;
 
 public class Practise {
   public static void main(String[] args) {
-    demo();
+    cast();
   }
 
-  public static void demo() {
+  public static void cast()
+  {
+    Observable.range(0,8)
+        .map(it-> it * 1000)
+        .cast(Integer.class)
+        .subscribe(System.out::println);
+  }
+
+  public static void buffer()
+  {
+    Observable.just(1,2,3,4,5,6,7)
+        .buffer(2)
+        .subscribe(it->{
+          System.out.println(it);
+        });
+
+    System.out.println("buffer with skip ");
+
+    Observable.just(1,2,3,4,5,6,7)
+        .skip(3)
+        .buffer(2)
+        .forEach(System.out::println);
+  }
+
+  public static void groupByDemo() {
     List<String> results = new ArrayList<>();
 
     Observable.create(new OnSubscribe<Integer>() {
