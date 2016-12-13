@@ -9,7 +9,9 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import org.android.study.ith.base.TBaseApplication;
 import org.android.study.ith.entities.AppInfo;
@@ -19,6 +21,13 @@ import rx.Observable;
  * Created by tanghao on 12/9/16.
  */
 public class TUtil {
+
+    public static String now() {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:sss");
+    return sdf.format(new Date());
+  }
+
+
   public static Observable<AppInfo> getApps(Activity activity) {
     return Observable.create(subscriber -> {
           final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);

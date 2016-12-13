@@ -1,7 +1,9 @@
 package org.ith.j2se.rxjava.chapter3;
 
 import java.util.concurrent.TimeUnit;
+import org.ith.j2se.util.TUtils;
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by tanghao on 12/12/16.
@@ -13,8 +15,25 @@ public class RxJavaEssentials_ch3 {
 
 
   public static void main(String[] args) throws Exception {
+    debounce();
+  }
 
-    timeout();
+  public static void debounce() {
+    System.out.println("start debounce: " + TUtils.now());
+    generData()
+        .subscribeOn(Schedulers.immediate())
+        .debounce(1, TimeUnit.SECONDS)
+        .subscribe(item ->{
+          System.out.println(item);
+        },err->{
+          System.out.println("err = " + err);
+        },()->{
+          System.out.println("Now onCompleted()");
+        });
+
+    TUtils.sleep();
+
+    System.out.println("end debounce: " + TUtils.now());
   }
 
   public static void timeout() throws InterruptedException {
