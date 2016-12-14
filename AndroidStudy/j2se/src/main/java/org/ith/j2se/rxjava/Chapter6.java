@@ -1,8 +1,6 @@
 package org.ith.j2se.rxjava;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import rx.Observable;
 import rx.Observer;
 import rx.functions.Func2;
@@ -14,26 +12,38 @@ import rx.functions.Func2;
 public class Chapter6 {
   public static void main(String[] args) {
 
-    Map<String,String> map = new HashMap<>();
-    map.put("a","avalue");
-    map.put("b","bvalue");
+    combineLatest();
 
-    for(Map.Entry<String,String> entry : map.entrySet())
-    {
-      String key = entry.getKey();
-      String value = entry.getValue();
-      System.out.println(key + ":" + value);
-    }
-
-
-
-   // zip();
   }
 
-  public static void zip()
-  {
-    Observable<Integer> into = Observable.range(0,9);
-    Observable<String> stro = Observable.just("A","B","C");
+  public static void combineLatest() {
+
+    Observable<Integer> into = Observable.range(0, 9);
+    Observable<String> stro = Observable.just("A", "B", "C");
+
+    Observable.combineLatest(into, stro, new Func2<Integer, String, Object>() {
+      @Override
+      public Object call(Integer integer, String s) {
+        return integer + s;
+      }
+    })
+        .forEach(System.out::println);
+
+    System.out.println("=================");
+
+    Observable.combineLatest(stro, into, new Func2<String, Integer, Object>() {
+      @Override
+      public Object call(String s, Integer integer) {
+        return integer + s;
+      }
+    })
+        .forEach(System.out::println);
+
+  }
+
+  public static void zip() {
+    Observable<Integer> into = Observable.range(0, 9);
+    Observable<String> stro = Observable.just("A", "B", "C");
 
     Observable.zip(into, stro, new Func2<Integer, String, Object>() {
       @Override
@@ -41,8 +51,18 @@ public class Chapter6 {
 
         return s + integer;
       }
-    }).forEach(System.out::println);
+    }).forEach(System.out::print);
 
+    System.out.println("\n=======stro into =========");
+
+
+    Observable.zip(stro, into, new Func2<String, Integer, Object>() {
+      @Override
+      public Object call(String s, Integer integer) {
+
+        return s + integer;
+      }
+    }).forEach(System.out::print);
   }
 
   public static void merge() {
@@ -63,11 +83,13 @@ public class Chapter6 {
           public void onCompleted() {
             System.out.println("onCompleted");
           }
+
           @Override
           public void onError(Throwable e) {
 
             System.out.println("onError");
           }
+
           @Override
           public void onNext(Serializable serializable) {
             System.out.println(serializable);
