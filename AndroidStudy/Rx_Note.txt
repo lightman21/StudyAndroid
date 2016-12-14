@@ -108,7 +108,21 @@ Cast
     it transforms each item from the source Observable into new type.
     casting it to a different Class.
 
+Chapter 6 Combing Observables
 
+Merge
+    Living in an asynchronizes world often creates scenarios in which we have multiple sources
+    but we want to provide only one fruition: multiple input,single output.
+
+Zip
+    Dealing with multiple sources brings in a new possible scenario:
+    receive data from multiple Observables,processing them,and making them available 
+    as a new Observable sequence.
+    zip() combines the value emitted by two or more Observables.
+    transforms them according to a specified function Func*.and emits a new value.
+
+Join
+    join allows you to pair together items from two sequences.We've already
 
 
 
