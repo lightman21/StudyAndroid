@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.android.study.ith.R;
 import org.android.study.ith.adapter.LoadAppAdapter;
 import org.android.study.ith.entities.AppInfo;
@@ -66,4 +67,44 @@ public class LoadAppActivity extends AppCompatActivity implements SwipeRefreshLa
       mRefreshLayout.setRefreshing(false);
     });
   }
+
+  public void loadList(List<AppInfo> apps)
+  {
+    Observable<AppInfo> observableApp = Observable.from(apps);
+
+    Observable<Long> tictoc = Observable.interval(1, TimeUnit.SECONDS);
+
+//    JoinObservabe.from
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

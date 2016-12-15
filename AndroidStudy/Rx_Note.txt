@@ -127,6 +127,8 @@ Join
 CombineLatest
     zip() works on the latest  unzipped unzipped unzipped item of the two Observables.
     Instead.combineLastest() works on the latest emitted  emitted emitted items.
+    Observable.combineLastest(first,second,Func2)
+    all second with lastest first
 
 And,Then,and When
 

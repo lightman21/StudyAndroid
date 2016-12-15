@@ -31,7 +31,7 @@ ext {
                          lombok         : "org.projectlombok:lombok:1.14.8",
 
                          rxjava         : "io.reactivex:rxjava:1.1.6",
-                         rxandroid      : "io.reactivex:rxandroid:1.2.1",
+                         rxandroid      : "io.reactivex:rxandroid:0.24.0",
 
                          retrofit       : "com.squareup.retrofit:retrofit:1.9.0",
                          okhttp         : "com.squareup.okhttp:okhttp:2.2.0",]
