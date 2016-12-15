@@ -124,8 +124,27 @@ Zip
 Join
     join allows you to pair together items from two sequences.We've already
 
+CombineLatest
+    zip() works on the latest  unzipped unzipped unzipped item of the two Observables.
+    Instead.combineLastest() works on the latest emitted  emitted emitted items.
+
+And,Then,and When
 
 
+Switch
+    RxJava's switch(),as per the definition.transforms an Obervable emitting Observables into
+    an Observable emitting the most recent emitted Observable.
+    Given a source Observable that emits a sequence of Observables.switch() subscribes to the
+    source Observable and starts emitting the same items emitted by the first emitted Observable.
+    the source emits a new Observable.switch() immediately unsubscribes from the old Observable.
+    thus interrupting the item flow from it.and subscribes to the new one.starting to emit its items.
+    
+    
+StartWith
+    RxJava's startWith() is the counterpart of concat().As concat() appends items to the ones emitted by
+    an Observable,startWith() emits a sequence of items. passed as a parameter.before the Observable 
+    starts emitting their own items.
 
-
+Concat
+    ???
 
