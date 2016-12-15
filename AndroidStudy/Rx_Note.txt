@@ -152,5 +152,9 @@ StartWith
     starts emitting their own items.
 
 Concat
-    ???
+    The merge operator combines the emissions of two or more Observables. but may interleave them.
+    whereas concat() never interleaves the emissions from multiple Observables.
+
+
+
 
