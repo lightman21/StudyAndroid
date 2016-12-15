@@ -131,9 +131,13 @@ CombineLatest
     all second with lastest first
 
 And,Then,and When
+    shit I can't practise it. where is the fucking JoinObservable
 
 
 Switch
+    There could be complex scenarios wherein we should be able to automatically unsubscribe from
+    an Obervable to subscribe to a new one in a countinuous subscribe-unsubscribe sequence.
+
     RxJava's switch(),as per the definition.transforms an Obervable emitting Observables into
     an Observable emitting the most recent emitted Observable.
     Given a source Observable that emits a sequence of Observables.switch() subscribes to the

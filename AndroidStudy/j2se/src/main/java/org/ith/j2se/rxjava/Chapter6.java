@@ -1,6 +1,8 @@
 package org.ith.j2se.rxjava;
 
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
+import org.ith.j2se.util.TUtils;
 import rx.Observable;
 import rx.Observer;
 import rx.functions.Func2;
@@ -12,7 +14,45 @@ import rx.functions.Func2;
 public class Chapter6 {
   public static void main(String[] args) {
 
-    combineLatest();
+    concatVersusMerge();
+
+  }
+
+  /**
+   * The Merge operator is also similar.
+   *
+   * It combines the emissions of two or more Observables, but may interleave them.
+   *
+   * whereas Concat never interleaves the emissions from multiple Observables.
+   */
+  public static void concatVersusMerge() {
+
+//    merge gives no guarantee of interleaving items one by one
+    Observable.merge(
+        Observable.interval(1, TimeUnit.SECONDS).map(id -> "A" + id),
+        Observable.interval(1, TimeUnit.SECONDS).map(id -> "B" + id))
+        .subscribe(System.out::print);
+
+//    Concat will never start printing B, because stream A never finishes.
+
+    Observable.concat(
+        Observable.interval(1, TimeUnit.SECONDS).map(id -> "Concat_A" + id),
+        Observable.interval(1, TimeUnit.SECONDS).map(id -> "Concat_B" + id))
+        .subscribe(System.out::print);
+
+    TUtils.sleep(5 * 1000);
+  }
+
+  public static void startWith() {
+    Observable<Integer> intob = Observable.range(0, 5);
+    intob.startWith(0x1988)
+        .forEach(System.out::println);
+  }
+
+  public static void andThenAndWhen() {
+    Observable<Integer> intob = Observable.range(0, 5);
+    Observable<String> strob = Observable.just("A", "B", "C");
+
 
   }
 

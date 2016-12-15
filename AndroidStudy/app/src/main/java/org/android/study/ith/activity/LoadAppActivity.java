@@ -73,8 +73,6 @@ public class LoadAppActivity extends AppCompatActivity implements SwipeRefreshLa
     Observable<AppInfo> observableApp = Observable.from(apps);
 
     Observable<Long> tictoc = Observable.interval(1, TimeUnit.SECONDS);
-
-//    JoinObservabe.from
   }
 
 
