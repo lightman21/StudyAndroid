@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="org.android.study.ith"
 >
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
             android:allowBackup="true"
@@ -11,7 +17,8 @@
             android:theme="@style/AppTheme"
             android:name=".base.TBaseApplication"
     >
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -28,6 +35,10 @@
                 android:screenOrientation="portrait"
         />
 
+
+        <activity android:name=".activity.DownloadVideoAct"
+                android:screenOrientation="portrait"
+        />
     </application>
 
 </manifest>

@@ -7,9 +7,10 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import java.io.File;
 import java.io.FileOutputStream;
-import org.android.study.ith.activity.PasswordEditTextAct;
+import org.android.study.ith.activity.DownloadVideoAct;
 import rx.schedulers.Schedulers;
 
+@SuppressWarnings("unused")
 public class MainActivity extends AppCompatActivity {
 
   @Override
@@ -17,18 +18,22 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    goDest();
+  }
+
+  private void before()
+  {
     enableStrictMode();
+    avoidBlockingIO();
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    avoidBlockingIO();
   }
 
-  @SuppressWarnings("unused")
-  public void goPass() {
-    startActivity(new Intent(this, PasswordEditTextAct.class));
+  public void goDest() {
+    startActivity(new Intent(this, DownloadVideoAct.class));
   }
 
   public void enableStrictMode() {
@@ -65,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  public void avoidBlockingIO()
-  {
-    Schedulers.io().createWorker().schedule(()->mockBlockingIO());
+  public void avoidBlockingIO() {
+    Schedulers.io().createWorker().schedule(() -> mockBlockingIO());
   }
 }
