@@ -23,7 +23,6 @@ public class Chapter2 {
     TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
     twitterStream.addListener(
         new twitter4j.StatusListener() {
-          @Override
           public void onStatus(Status status) {
             System.out.println("Status: {}" + status);
           }
