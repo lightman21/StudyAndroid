@@ -1,4 +1,64 @@
 
+
+
+2016-12-21 10:55
+there is a useful method in Subscriptions.java
+which allow you to create a Subscription
+and set what to do when unsubscribed.
+
+```
+/***
+Creates and returns a Subscription that invokes the given
+Action0 when unsubscribed.
+*/
+public static Subscription create(final Action0 unsubscribe) {
+      return BooleanSubscription.create(unsubscribe);
+}
+
+```
+and there is a add(Subscription s) method in Subscriber.java
+
+```
+    // method in Subscriber.java
+    public final void add(Subscription s) {
+        subscriptions.add(s);
+    }
+
+```
+so when you have a Subscriber and you wanna do sth during it unsubscribe
+you can do like this
+
+```
+subscriber.add(Subscriptions.create(
+  ()->{
+    //here do what you wanna when unsubscribe
+  }
+));
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Take and TakeLast
   When we don't need the whole sequence but only a few elements at beginning or end.
   we can use take() or takeLast()
