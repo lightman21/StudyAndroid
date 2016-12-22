@@ -6,10 +6,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import rx.Observable;
 import rx.Subscriber;
 import rx.subscriptions.Subscriptions;
-import twitter4j.StallWarning;
 import twitter4j.Status;
-import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
@@ -43,7 +40,7 @@ public class LazyTwitterObservable {
 
   public LazyTwitterObservable() {
     this.twitterStream = new TwitterStreamFactory().getInstance();
-    this.twitterStream.addListener(new StatusListener() {
+    this.twitterStream.addListener(new SimpleStatusListener() {
       @Override
       public void onStatus(Status status) {
         Stream.of(subscribers).forEach(s -> s.onNext(status));
@@ -53,27 +50,6 @@ public class LazyTwitterObservable {
       public void onException(Exception e) {
         Stream.of(subscribers).forEach(s -> s.onError(e));
       }
-
-      @Override
-      public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-
-      }
-
-      @Override
-      public void onTrackLimitationNotice(int i) {
-
-      }
-
-      @Override
-      public void onScrubGeo(long l, long l1) {
-
-      }
-
-      @Override
-      public void onStallWarning(StallWarning stallWarning) {
-
-      }
-
     });
   }
 
