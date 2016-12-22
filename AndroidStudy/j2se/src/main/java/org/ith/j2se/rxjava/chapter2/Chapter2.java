@@ -1,6 +1,7 @@
 package org.ith.j2se.rxjava.chapter2;
 
 import rx.Observable;
+import rx.observables.ConnectableObservable;
 import rx.subscriptions.Subscriptions;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -14,9 +15,23 @@ import twitter4j.util.function.Consumer;
  * Created by tanghao on 12/19/16.
  */
 
+@SuppressWarnings("unused")
 public class Chapter2 {
   public static void main(String[] args) {
-    cacheDemo();
+    //   cacheDemo();
+    connectDemo();
+  }
+
+  public static void connectDemo() {
+    connect().subscribe(System.out::println);
+    connect().subscribe(it -> System.out.println("second" + it));
+  }
+
+  public static ConnectableObservable<Integer> connect() {
+    return Observable.<Integer>create(it -> {
+      System.out.println("Created");
+      it.onNext(123);
+    }).publish();
   }
 
   public static void normalTwitterStream() {
@@ -57,7 +72,6 @@ public class Chapter2 {
     // TimeUnit.SECONDS.sleep(10);
     // twitterStream.shutdown();
   }
-
 
   /***
    * n real life, you would probably process each Status message (tweet) somehow. For example, save
@@ -197,7 +211,6 @@ public class Chapter2 {
     into.subscribe(mb -> System.out.println("MB " + mb));
 
     System.out.println("finish--------------");
-
 
     System.out.println("\ncache\n");
 

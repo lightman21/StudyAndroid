@@ -1,4 +1,42 @@
+2016-12-22 11:09
+introduce rx.subjects.Subject
+a Subject is an Observable and also an Observer
 
+public Subject<T,R> extends Observable<R> implements Observe<T>
+
+you can use Subject to avoid manually managing the Subscribers in Twitter Demo.
+use PublishSubject like the book writed.
+
+but every subscriber subscribe() to PublishSubject
+we also establish a http connection?
+
+how can we avoid wasting connection and let all Subscribers share a connection?
+    this is what the publish().refCount() realy does.
+    and the share() == publish().refCount()
+    
+    The publish().refCount() tandem wrapped the underlying Observable and intercepted all subscriptions.
+
+Another useful use case of the publish() operator is forcing subscription in the absence of any Subscriber.
+
+what if you wanna store each event before expose it to your client?
+
+a naive approach
+    Observable<Status> tweets = //
+    return tweets.doOnNext(this::saveStatus);
+
+but Observables are lazy by desing.which means if no one 
+subscribe to the tweets Observable. the saveStatus() never called.
+
+what we really want is a fake Observer that does not really listen to events
+but forces upstream Observables to produce events.
+
+the solution is publish() connect()
+ConnectableObservable<Status> published = Observable.publish();
+published.connect()
+
+every subscriber who subscribe to the ConnectableObservable
+will receive the same sequence of events.
+but the origin observable's create() method only triggered once
 
 
 2016-12-21 10:55
