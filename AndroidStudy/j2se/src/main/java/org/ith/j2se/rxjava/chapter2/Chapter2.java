@@ -1,5 +1,7 @@
 package org.ith.j2se.rxjava.chapter2;
 
+import java.util.concurrent.TimeUnit;
+import org.ith.j2se.util.TUtils;
 import rx.Observable;
 import rx.observables.ConnectableObservable;
 import rx.subscriptions.Subscriptions;
@@ -11,6 +13,8 @@ import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.util.function.Consumer;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 /**
  * Created by tanghao on 12/19/16.
  */
@@ -19,7 +23,36 @@ import twitter4j.util.function.Consumer;
 public class Chapter2 {
   public static void main(String[] args) {
     //   cacheDemo();
-    connectDemo();
+    delayAndTimer();
+  }
+
+  /***
+   * delay ---> for every event
+   *
+   * timer ---> for a sequence of event 
+   */
+  public static void delayAndTimer() {
+    System.out.println("========timer===============");
+
+    Observable.timer(500, TimeUnit.MILLISECONDS)
+        .flatMap(i -> Observable.just("timer1", "timer2", "timer3"))
+        .subscribe(i -> System.out.println(i + " " + System.currentTimeMillis()));
+
+    System.out.println("========delay===============");
+
+    Observable.just("delay_1", "delay_2", "delay_3")
+        .delay(500, TimeUnit.MILLISECONDS)
+        .subscribe(i -> System.out.println(i + "  " + System.currentTimeMillis()));
+
+
+    Observable
+        .just("Lorem", "ipsum", "dolor", "sit", "amet",
+            "consectetur", "adipiscing", "elit")
+        .delay(word -> Observable.timer(word.length(), SECONDS))
+        .subscribe(System.out::println);
+
+    TUtils.sleep();
+    System.out.println("finished method");
   }
 
   public static void connectDemo() {
