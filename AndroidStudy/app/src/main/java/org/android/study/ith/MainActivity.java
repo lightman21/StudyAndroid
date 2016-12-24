@@ -7,7 +7,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import java.io.File;
 import java.io.FileOutputStream;
-import org.android.study.ith.activity.DownloadVideoAct;
+import org.android.study.ith.activity.PasswordEditTextAct;
 import rx.schedulers.Schedulers;
 
 @SuppressWarnings("unused")
@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void goDest() {
-    startActivity(new Intent(this, DownloadVideoAct.class));
+    startActivity(new Intent(this, PasswordEditTextAct.class));
+//    startActivity(new Intent(this, DownloadVideoAct.class));
   }
 
   public void enableStrictMode() {

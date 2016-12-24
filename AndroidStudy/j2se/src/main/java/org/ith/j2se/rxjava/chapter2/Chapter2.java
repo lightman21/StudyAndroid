@@ -29,7 +29,7 @@ public class Chapter2 {
   /***
    * delay ---> for every event
    *
-   * timer ---> for a sequence of event 
+   * timer ---> for a sequence of event
    */
   public static void delayAndTimer() {
     System.out.println("========timer===============");

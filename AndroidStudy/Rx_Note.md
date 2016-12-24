@@ -1,3 +1,30 @@
+2016-12-24 14:00
+    delay() and timer()
+    delay() is more comprehensive than timer().
+    because it shifts every every single event further by a given amount of time.
+    whereas timer() simpley "sleep" and emits a special event after given time.
+
+    Order of Events After flatMap()
+    what flatMap() essentially does is take a master sequence(Observable) of
+    values appearing over time(events) and replaces each of the events with an
+    independent subsequence. so it does not preserve the original order of events.
+
+    Preserving Order Using cancatMap()
+    concatMap() does not introduce any concurrency whatsoever 
+    but it preserves the order of upstream events avoid overlapping.
+    
+    Note:
+    flatMap() uses the merger() operator internally that subscribes to all
+    sub-Observables at the same time and does not make any distinction between
+    them.That is why downstream events interleave with one another.
+    ConcapMap().on the other hand,could technically use the concat() operator.
+    concat() subscribes only to the first underlying Observable and continues with
+    the second one when the first one completes.
+
+
+
+
+
 2016-12-22 11:09
 introduce rx.subjects.Subject
 a Subject is an Observable and also an Observer
@@ -73,27 +100,6 @@ subscriber.add(Subscriptions.create(
   }
 ));
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
