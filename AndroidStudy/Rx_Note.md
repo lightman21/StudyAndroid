@@ -79,7 +79,133 @@
     the slow stream is primary.and all slow events appear exactly once.
     and the fast stream is just a helper used only when slow emits something.
     so some fast events are dropped.
-    
+
+
+    2016-12-26 07:05
+
+    when two Observable has different space. one slow and one fast.
+    but slow occurs first and then fast occors.
+    when 
+    slow.withLastestFrom(fast,(s,f)-> sth)
+    at the beginning slow emit 1,2,3,4
+    but the fast doesn't emit anything
+    this will cause some slow event dropped.
+    so the startWith() operator introduced.
+'''
+  bservable<String> fast = interval(10, MILLISECONDS)
+  .map(x -> "F" + x)
+  .delay(100, MILLISECONDS)
+  .startWith("FX");
+  
+ Observable<String> slow = interval(17, MILLISECONDS).map(x -> "S" + x);
+ slow
+ .withLatestFrom(fast, (s, f) -> s + ":" + f)
+ .forEach(System.out::println);
+'''
+the output looks like:
+S0:FX
+S1:FX
+S2:FX
+S3:FX
+S4:FX
+S5:FX
+S6:F1
+S7:F3
+S9:F6
+...
+
+now noone from the primary slow event dropped.
+
+
+
+amb() and ambWith()
+amb() is instance method and ambWith() is static method but works same.
+
+which amb() does is first subscribe all Observable.
+but when a Observable emit first.
+amb() suddenly ununsubscribe() b Observable.
+
+'''
+public static Observable<String> stream(int initialDelay, int interval, String name) {
+  return Observable
+      .interval(initialDelay, interval, MILLISECONDS)
+      .map(x -> name + x)
+      .doOnSubscribe(() -> System.out.println("Subscribe to " + name))
+      .doOnUnsubscribe(() -> System.out.println("UUUUUUnsubscribe from " + name));
+}
+
+ public static void justDropSlower() {
+    Observable.amb(
+        stream(100, 17, "S"),
+        stream(200, 10, "F")
+    ).subscribe(System.out::println);
+
+    TUtils.sleep();
+  }
+
+'''
+the output looks like
+
+Subscribe to S
+Subscribe to F
+UUUUUUnsubscribe from F
+S0
+S1
+S2
+S3
+...
+
+
+
+Scanning Through the Sequence with Scan and Reduce
+consider an Observable<Long> that monitros progress of data transfer.
+Every time a chunk of data is send,a single Long value appears telling.
+indicating the size of that chunk.
+but we realy want to know is how many bytes were transferred in total.
+
+a very bad idea is to use global state modified inside an operator.like
+
+'''
+Observable<long> progress = transferFile();
+
+LongAdder total = new LongAdder();
+progress.subscribe(total::add);
+'''
+the preceding code can lead to very unpleasant concurrency buts.
+the Lamba expressions within operators can be executed from 
+arbitrary threads so global state must be thread safe.
+
+you can implement this relatively complex workflow easily by using
+the scan() operator:
+'''
+Observable<long> progress = transferFile();
+
+Observable<long> totals = progress.scan((total,chunk)->total+chunk);
+'''
+
+also an overloaded version of scan() can provide an initial value
+if it is different than simply the first element.
+'''
+Observable<BigInteger> fact = Observable
+.range(2,100)
+.scan(BigInteger.ONE,(big,cur)->
+big.multiply(BigInteger.valueof(cur)));
+'''
+fact will generate 1,2,6,24,120,720... and so forth.
+Notice that the upstream Observable starts from 2
+but the downstream starts from 1.which was our initial value.(BigInteger.ONE)
+
+
+what about we realy wanna the total?
+'''
+public <R> Observable<R> reduce(
+R initialValue,
+Func2<R,T,R> accumulator){
+return can(initialValue,accumulator).takeLast(1);
+'''
+
+Next day
+    Reduction with Mutable Accumulator: collect()
     
 
 

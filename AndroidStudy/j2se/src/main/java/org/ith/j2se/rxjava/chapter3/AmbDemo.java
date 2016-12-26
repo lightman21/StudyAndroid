@@ -1,5 +1,6 @@
 package org.ith.j2se.rxjava.chapter3;
 
+import org.ith.j2se.util.TUtils;
 import rx.Observable;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -25,6 +26,8 @@ public class AmbDemo {
         stream(100, 17, "S"),
         stream(200, 10, "F")
     ).subscribe(System.out::println);
+
+    TUtils.sleep();
   }
 
   public static Observable<String> stream(int initialDelay, int interval, String name) {

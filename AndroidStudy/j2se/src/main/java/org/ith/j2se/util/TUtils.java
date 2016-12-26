@@ -15,7 +15,7 @@ public class TUtils {
 
   public static void sleep() {
     try {
-      Thread.sleep(2 * 1000);
+      Thread.sleep(3 * 1000);
     } catch (Exception e) {
 
     }
