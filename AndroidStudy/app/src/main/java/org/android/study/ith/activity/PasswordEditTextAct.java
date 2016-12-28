@@ -43,6 +43,8 @@ public class PasswordEditTextAct extends AppCompatActivity {
       }
     });
 
+    TUtil.animate(btnDebounce);
+
 
     touchView.setOnTouchListener(new View.OnTouchListener() {
       @Override

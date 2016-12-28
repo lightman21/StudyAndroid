@@ -1,3 +1,70 @@
+2016-12-28 10:25
+Ways of Combining Streams:concat(),merge(),and switchOnNext()
+
+concat(): concat allow joining together two Observables:
+when the first one completes,concat() subscribes to the second one.
+Importantly,concat() will subscribe to the second Observable
+if and only if the first one is completed.
+
+'''
+//precondition:
+//fromCache maybe empty or emit sth
+//but loadFromDb always emits one Car
+
+Observable<Car> fromCache = loadFromCache();
+Observable<Car> fromDb = loadFromDb();
+
+Observable<Car> found = Observable
+        .concat(fromCache, fromDb)
+        .first();
+'''
+
+concat() followed by first() will initially subscribe to fromCache
+and if that emits one item, concat() will not subscribe to fromDb.
+However, if fromCache is empty, concat() will continue with fromDb,
+subscribe to it, and load data from database.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 2016-12-24 14:00
     delay() and timer()
     delay() is more comprehensive than timer().
@@ -92,7 +159,7 @@
     this will cause some slow event dropped.
     so the startWith() operator introduced.
 '''
-  bservable<String> fast = interval(10, MILLISECONDS)
+  Observable<String> fast = interval(10, MILLISECONDS)
   .map(x -> "F" + x)
   .delay(100, MILLISECONDS)
   .startWith("FX");
@@ -206,9 +273,57 @@ return can(initialValue,accumulator).takeLast(1);
 
 Next day
     Reduction with Mutable Accumulator: collect()
-    
+
+    the single() operator:
+    Asserting an Observable has exactly one value or onError invoked
+    notice one value.which means only one value emitted.
+    Event you emit the same event everytime.onError occured.
+    must be only just one value.
+    '''
+      //onError will be invoked
+     Observable.just(1,1,1,1)
+             .single()
+             .subscribe(System.out::println);
+    '''
 
 
+
+
+
+
+
+'''
+  Observable<List<Integer>> all = Observable
+        .range(10, 20)
+        .reduce(new ArrayList<>(), (list, item) -> {
+          list.add(item);
+          return list;
+        });
+
+    //a handy way
+    Observable<List<Integer>> handyAll = Observable
+        .range(10, 20)
+        .collect(ArrayList::new, List::add);
+
+    all.forEach(System.out::print);
+
+    System.out.println("\n\n=========handyAll\n");
+
+    handyAll.forEach(System.out::print);
+
+    System.out.println("\n\n=========toList\n");
+
+    Observable.range(10, 20).toList().forEach(System.out::print);
+
+    System.out.println("\n\n=========collect used in StringBuffer\n");
+
+    Observable
+        .range(1, 10)
+        .collect(StringBuilder::new,
+            (sb, x) -> sb.append(x).append(", "))
+        .map(StringBuilder::toString)
+        .subscribe(d -> System.out.println(d));
+'''
 
 2016-12-22 11:09
 introduce rx.subjects.Subject

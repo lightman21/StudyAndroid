@@ -1,5 +1,6 @@
 package org.android.study.ith.util;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -78,5 +80,9 @@ public class TUtil {
     return TBaseApplication.getAppContext();
   }
 
+  public static void animate(View view)
+  {
+    ObjectAnimator.ofInt(view,"x",1000).start();
+  }
 
 }
