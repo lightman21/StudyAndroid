@@ -286,6 +286,34 @@ Next day
              .subscribe(System.out::println);
     '''
 
+2016-12-29 10:24
+  groupBy()
+  ```
+  Observable<ReservationEvent> facts = factStore.observe();
+
+  Observable<GroupedObservable<UUID, ReservationEvent>> grouped =
+          facts.groupBy(ReservationEvent::getReservationUuid);
+
+  grouped.subscribe(byUuid -> {
+      byUuid.subscribe(this::updateProjection);
+  });
+
+  ```
+
+  You might first expect that groupBy() should return a List<Observable<ReservationEvent>>
+  after all we transform a single stream into multiple ones.
+  This assumption breaks when you realize that
+  groupBy() cannot possibly know how many different keys (UUIDs)
+  will generate upstream. Therefore, it must produce them on-the-fly:
+  whenever a new UUID is discovered, the new GroupedObservable<UUID, ReservationEvent> is emitted,
+  pushing events related to that UUID. So it becomes clear
+  that the outer data structure must be an Observable.
+
+
+
+
+
+
 
 
 
