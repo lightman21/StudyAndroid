@@ -7,6 +7,8 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import org.android.study.ith.activity.PasswordEditTextAct;
 import rx.schedulers.Schedulers;
 
@@ -21,8 +23,14 @@ public class MainActivity extends AppCompatActivity {
     goDest();
   }
 
-  private void before()
-  {
+  private void timeOut() throws Exception {
+    URL url = new URL("http://www.baidu.com");
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setConnectTimeout(1);
+    conn.setReadTimeout(2);
+  }
+
+  private void before() {
     enableStrictMode();
     avoidBlockingIO();
   }
